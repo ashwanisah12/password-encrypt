@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Glass Vault — Password Encryptor</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="wrap">
+  <div class="card" role="main" aria-labelledby="title">
+    <div class="panel" aria-hidden="false">
+      <div class="topbar">
+        <div>
+          <h1 id="title">🔐 Encrypt (create token)</h1>
+          <p class="lead">Type the secret (password/text). App will return an encrypted token you can store/use anywhere. Keep your secret safe.</p>
+        </div>
+        <div class="hint small">Token format: <em>salt:iv:ciphertext</em> (Base64)</div>
+      </div>
+
+      <label for="secretInput">Secret (to encrypt)</label>
+      <textarea id="secretInput" placeholder="Type password or text to encrypt"></textarea>
+
+      <label for="pwdInput">Your passphrase (used to derive key)</label>
+      <input id="pwdInput" type="password" placeholder="Enter passphrase to protect token">
+
+      <div class="controls">
+        <div style="display:flex;gap:8px">
+          <button id="encryptBtn" class="btn">Encrypt & Generate Token</button>
+          <button id="saveLocalBtn" class="btn secondary">Save (local)</button>
+        </div>
+        <div id="encryptStatus" class="status" style="display:none"></div>
+      </div>
+
+      <label style="margin-top:12px">Encrypted token</label>
+      <textarea id="tokenOutput" readonly class="token-area" placeholder="Encrypted token will appear here"></textarea>
+
+      <div class="actions">
+        <button id="copyTokenBtn" class="btn secondary">Copy token</button>
+        <button id="downloadTokenBtn" class="btn secondary">Download token</button>
+        <button id="clearStoredBtn" class="btn secondary">Clear saved</button>
+      </div>
+      <p class="small" style="margin-top:12px">Saved tokens are stored in <strong>browser localStorage</strong> only. Tokens contain salt & IV so decryption elsewhere is possible with your passphrase.</p>
+    </div>
+
+    <div class="panel">
+      <div class="topbar">
+        <div>
+          <h1>🔑 Decrypt (use token)</h1>
+          <p class="lead">Paste encrypted token and the same passphrase to recover the original secret.</p>
+        </div>
+      </div>
+
+      <label for="tokenInput">Paste token</label>
+      <textarea id="tokenInput" placeholder="Paste salt:iv:ciphertext (Base64)"></textarea>
+
+      <label for="pwdInput2">Passphrase (that was used to encrypt)</label>
+      <input id="pwdInput2" type="password" placeholder="Enter the same passphrase">
+
+      <div class="controls">
+        <div style="display:flex;gap:8px">
+          <button id="decryptBtn" class="btn">Decrypt</button>
+          <button id="loadLocalBtn" class="btn secondary">Load saved token</button>
+        </div>
+        <div id="decryptStatus" class="status" style="display:none"></div>
+      </div>
+
+      <label style="margin-top:12px">Decrypted secret</label>
+      <textarea id="decryptedOutput" readonly placeholder="Decrypted text will appear here"></textarea>
+
+      <div class="actions" style="margin-top:8px">
+        <button id="copyDecryptedBtn" class="btn secondary">Copy</button>
+      </div>
+    </div>
+
+    <div class="footer">Made with glass ✨ — Keep your passphrase secure. This is client-side only (no server).</div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
